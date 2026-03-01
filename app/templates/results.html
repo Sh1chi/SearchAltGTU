@@ -1,28 +1,35 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <title>Результаты</title>
-  <link rel="stylesheet" href="/static/style.css" />
-</head>
-<body>
-  <div class="container">
-    <a href="/">← назад</a>
-    <h1>Результаты</h1>
+{% extends "base.html" %}
+{% block content %}
+  <h1>Результаты</h1>
 
-    {% if q %}
-      <p>Запрос: <b>{{ q }}</b></p>
-    {% endif %}
+  <form class="form" action="/search" method="get">
+    <input name="q" class="input" value="{{ q }}" placeholder="ФИО или часть" />
+    <button class="btn" type="submit">Искать</button>
+  </form>
 
-    {% if items and items|length > 0 %}
-      <ul>
-        {% for it in items %}
-          <li><a href="{{ it.url }}">{{ it.title }}</a></li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="hint">Пока ничего не найдено (поиск ещё не реализован).</p>
-    {% endif %}
-  </div>
-</body>
-</html>
+  {% if not q %}
+    <p class="muted">Введите ФИО для поиска.</p>
+  {% elif items|length == 0 %}
+    <p class="muted">Ничего не найдено.</p>
+  {% else %}
+    <p class="muted">Найдено: {{ items|length }}</p>
+
+    <div class="list">
+      {% for it in items %}
+        <article class="card">
+          <div class="card-top">
+            <a class="title" href="{{ it.url }}" target="_blank" rel="noopener noreferrer">{{ it.title }}</a>
+            <div class="meta">
+              {% if it.published_date %}<span>{{ it.published_date }}</span>{% endif %}
+              <span class="badge">score: {{ it.score }}</span>
+              <span class="badge">{{ it.match_type }}</span>
+              <span class="badge">{{ it.person_normal }}</span>
+            </div>
+          </div>
+          <div class="snippet">{{ it.snippet_html | safe }}</div>
+          <div class="link"><a href="{{ it.url }}" target="_blank" rel="noopener noreferrer">{{ it.url }}</a></div>
+        </article>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

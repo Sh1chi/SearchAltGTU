@@ -1,17 +1,20 @@
-<!doctype html>
-<html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <title>Поиск по новостям — MVP</title>
-  <link rel="stylesheet" href="/static/style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>Поиск человека по новостям</h1>
-    <form action="/search" method="get">
-      <input name="q" placeholder="ФИО или фамилия" />
-      <button type="submit">Найти</button>
-    </form>
+{% extends "base.html" %}
+{% block content %}
+  <h1>Поиск упоминаний ФИО в новостях АлтГТУ</h1>
+  <p class="muted">Поддерживает падежи и варианты написания (NER).</p>
+
+  <form class="form" action="/search" method="get">
+    <input name="q" class="input" placeholder="Например: Иванов Иван Иванович или Иванов И.И." autofocus />
+    <button class="btn" type="submit">Искать</button>
+  </form>
+
+  <div class="hint">
+    <div>Примеры:</div>
+    <ul>
+      <li>Иванов Иван Иванович</li>
+      <li>Иванов И. И.</li>
+      <li>Иванов Иван</li>
+      <li>Иванов</li>
+    </ul>
   </div>
-</body>
-</html>
+{% endblock %}

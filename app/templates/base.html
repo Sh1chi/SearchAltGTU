@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{{ title or "Поиск ФИО в новостях АлтГТУ" }}</title>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <a class="brand" href="/">АлтГТУ · поиск упоминаний</a>
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+      <span>Источник: altstu.ru</span>
+    </footer>
+  </div>
+</body>
+</html>
