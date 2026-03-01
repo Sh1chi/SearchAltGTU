@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Результаты</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <a href="/">← назад</a>
+    <h1>Результаты</h1>
+
+    {% if q %}
+      <p>Запрос: <b>{{ q }}</b></p>
+    {% endif %}
+
+    {% if items and items|length > 0 %}
+      <ul>
+        {% for it in items %}
+          <li><a href="{{ it.url }}">{{ it.title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="hint">Пока ничего не найдено (поиск ещё не реализован).</p>
+    {% endif %}
+  </div>
+</body>
+</html>
